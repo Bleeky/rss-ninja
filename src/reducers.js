@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import exampleReducer from './modules/Example/reducers';
+import authReducer from './modules/Auth/authReducer';
+import reederReducer from './modules/Reeder/reducers';
 
 const Reducers = combineReducers({
-  example: exampleReducer,
+  auth: authReducer,
+  reeder: reederReducer,
 });
 
 export default Reducers;

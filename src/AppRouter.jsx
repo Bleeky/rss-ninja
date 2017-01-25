@@ -22,6 +22,6 @@ const AppRouter = ({ history }) => (
   </Provider>
 );
 
-AppRouter.propTypes = { history: React.PropTypes.func.isRequired };
+AppRouter.propTypes = { history: React.PropTypes.func };
 
 export default AppRouter;

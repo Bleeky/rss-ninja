@@ -1,1 +1,43 @@
-.App {}
+body {
+    margin: 0;
+}
+
+.App {
+    .container {
+        display: flex;
+        justify-content: space-around;
+        align-content: space-around;
+        align-items: stretch;
+        height: 100vh;
+    }
+
+    .feeds {
+        order: 1;
+        flex-basis: 20%;
+        align-self: stretch;
+        border-right: 1px solid #000;
+        height: 100%;
+        overflow: scroll;
+    }
+
+    .feed {
+        order: 2;
+        flex-basis: 20%;
+        align-self: stretch;
+        border-right: 1px solid #000;
+        height: 100%;
+        overflow: scroll;
+    }
+
+    .content {
+        order: 3;
+        flex-basis: 60%;
+        align-self: stretch;
+        height: 100%;
+        overflow: scroll;
+    }
+
+    .element {
+        padding: 5px;
+    }
+}

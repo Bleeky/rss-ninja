@@ -7,7 +7,7 @@ const rootPath = path.resolve(__dirname, '..');
 let entry;
 let plugins = [];
 if (env === 'production') {
-  entry = path.join(rootPath, './src');
+  entry = ['babel-polyfill', path.join(rootPath, './src')];
   plugins = [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
@@ -22,6 +22,7 @@ if (env === 'production') {
   ];
 } else {
   entry = [
+    'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-hot-middleware/client',
     'webpack/hot/only-dev-server',
