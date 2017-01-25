@@ -5,12 +5,26 @@ import {
 
 
 class LoginView extends Component {
+  static propTypes = {
+    login: PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
     };
+
+    this.login = ::this.login;
+  }
+
+  login(e) {
+    e.preventDefault();
+    this.props.login({
+      email: this.state.email,
+      password: this.state.password,
+    });
   }
 
   render() {
@@ -19,6 +33,7 @@ class LoginView extends Component {
         Login
         <input type="text" onChange={(e) => { this.setState({ email: e.target.value }); }} />
         <input type="password" onChange={(e) => { this.setState({ email: e.target.value }); }} />
+        <button onClick={this.login}>Login</button>
         Dont have an account ? Signup
         <Link to={'/signup'}>
           here.
