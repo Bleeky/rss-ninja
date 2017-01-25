@@ -13,12 +13,11 @@ const fetchRssFailure = error => ({
 });
 
 function fetchRss(id) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(fetchRssRequest());
     return fetch(`http://www.socialhive.fr:4242/me/feed/${id}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${getState().auth.token}`,
         'Content-Type': 'application/json',
       },
     })
