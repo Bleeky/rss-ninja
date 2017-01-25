@@ -15,7 +15,7 @@ const signupFailure = error => ({
 function signup(signupData) {
   return (dispatch) => {
     dispatch(signupRequest());
-    return fetch('http://localhost:4242/auth/signup', {
+    return fetch('http://www.socialhive.fr:4242/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ function signup(signupData) {
       await localStorage.setItem('rssninjatoken', response.token);
       dispatch(signupSuccess(response));
     })
-    .catch((error) => { dispatch(signupFailure(error)); });
+    .catch((error) => { console.log('error', error); dispatch(signupFailure(error)); });
   };
 }
 

@@ -15,7 +15,7 @@ const logoutFailure = error => ({
 function logout() {
   return (dispatch) => {
     dispatch(logoutRequest());
-    return fetch('http://localhost:4242/auth/logout', {
+    return fetch('http://www.socialhive.fr:4242/auth/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

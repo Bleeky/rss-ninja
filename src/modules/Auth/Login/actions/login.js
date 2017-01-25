@@ -15,7 +15,7 @@ const loginFailure = error => ({
 function login(loginData) {
   return (dispatch) => {
     dispatch(loginRequest());
-    return fetch('http://localhost:4242/auth/login', {
+    return fetch('http://www.socialhive.fr:4242/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

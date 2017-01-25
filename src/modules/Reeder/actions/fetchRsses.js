@@ -13,11 +13,12 @@ const fetchRssesFailure = error => ({
 });
 
 function fetchRsses() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(fetchRssesRequest());
-    return fetch('http://localhost:4242/me/feeds', {
+    return fetch('http://www.socialhive.fr:4242/me/feeds', {
       method: 'GET',
       headers: {
+        Authorization: `Bearer ${getState().auth.token}`,
         'Content-Type': 'application/json',
       },
     })

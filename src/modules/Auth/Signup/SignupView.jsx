@@ -1,8 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import {
+  browserHistory,
+} from 'react-router';
 
 class SignupView extends Component {
   static propTypes = {
-    // authReducer: PropTypes.shape(),
+    isLogged: PropTypes.bool,
     signup: PropTypes.func,
   };
 
@@ -14,6 +17,22 @@ class SignupView extends Component {
     };
 
     this.signup = ::this.signup;
+  }
+
+  componentWillMount() {
+    if (this.props.isLogged) {
+      browserHistory.push('/');
+      return false;
+    }
+
+    return true;
+  }
+
+  componentDidUpdate() {
+    console.log('updating');
+    if (this.props.isLogged) {
+      browserHistory.push('/');
+    }
   }
 
   signup(e) {

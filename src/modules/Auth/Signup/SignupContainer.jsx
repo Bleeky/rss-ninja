@@ -6,7 +6,7 @@ import SignupView from './SignupView';
 import signup from './actions';
 
 const mapStateToProps = state => ({
-  authReducer: state.authReducer,
+  isLogged: state.auth.isLogged,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

@@ -6,7 +6,8 @@ import Reeder from './modules/Reeder';
 class App extends Component {
   static propTypes = {
     isLogged: PropTypes.bool,
-    // setToken: PropTypes.func,
+    setToken: PropTypes.func,
+    pingUser: PropTypes.func,
   };
 
   constructor(props) {
@@ -17,13 +18,14 @@ class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem('rssninjatoken');
     console.log(token);
-    // this.props.setToken(token);
+    this.props.setToken(token);
+    this.props.pingUser();
   }
 
   render() {
-    // if (!this.props.isLogged) {
-    //   return (<Login />);
-    // }
+    if (!this.props.isLogged) {
+      return (<Login />);
+    }
     return (
       <div className="App">
         <Reeder />

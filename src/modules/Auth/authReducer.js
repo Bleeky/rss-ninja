@@ -50,6 +50,28 @@ export default function authReducer(state = {
         ...state,
         error: action.error,
       };
+    case 'SET_TOKEN':
+      return {
+        ...state,
+        token: action.token,
+      };
+    case 'PING_REQUEST':
+      return {
+        ...state,
+      };
+    case 'PING_SUCCESS':
+      return {
+        ...state,
+        token: action.token,
+        id: action.id,
+      };
+    case 'PING_FAILURE':
+      return {
+        ...state,
+        token: null,
+        id: null,
+        isLogged: false,
+      };
     default:
       return state;
   }

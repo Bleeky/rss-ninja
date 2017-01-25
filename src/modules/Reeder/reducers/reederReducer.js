@@ -1,6 +1,8 @@
 export default function reederReducer(state = {
   feeds: [],
   feed: [],
+  currentFeed: {},
+  currentFeedEntry: {},
 }, action) {
   switch (action.type) {
     case 'FETCH_RSS_REQUEST':
