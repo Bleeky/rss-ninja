@@ -17,5 +17,9 @@ export const routes = [
 ];
 
 export const MatchWithSubRoutes = route => (
-  <Match {...route} render={props => <route.component {...props} routes={route.routes} />} />
-);
+  <Match
+    {...route} render={props =>
+      <route.component {...props} routes={route.routes} router={route.router} />
+    }
+  />
+  );

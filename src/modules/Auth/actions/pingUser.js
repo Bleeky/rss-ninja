@@ -15,10 +15,13 @@ const pingFailure = error => ({
 function ping() {
   return (dispatch) => {
     dispatch(pingRequest());
-    return fetch('http://www.socialhive.fr:4242/auth/ping', {
+    return fetch('http://www.socialhive.fr:4242/auth/check', {
       method: 'GET',
+      mode: 'no-cors',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
     })
     .then(async (response) => {

@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  browserHistory,
-} from 'react-router';
 
 class SignupView extends Component {
   static propTypes = {
     isLogged: PropTypes.bool,
     signup: PropTypes.func,
+    router: PropTypes.shape(),
   };
 
   constructor(props) {
@@ -21,7 +19,8 @@ class SignupView extends Component {
 
   componentWillMount() {
     if (this.props.isLogged) {
-      browserHistory.push('/');
+      // browserHistory.push('/');
+      this.props.router.transitionTo('/');
       return false;
     }
 
@@ -29,9 +28,9 @@ class SignupView extends Component {
   }
 
   componentDidUpdate() {
-    console.log('updating');
     if (this.props.isLogged) {
-      browserHistory.push('/');
+      // browserHistory.push('/');
+      this.props.router.transitionTo('/');
     }
   }
 

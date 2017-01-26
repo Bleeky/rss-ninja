@@ -17,8 +17,11 @@ function login(loginData) {
     dispatch(loginRequest());
     return fetch('http://www.socialhive.fr:4242/auth/login', {
       method: 'POST',
+      mode: 'no-cors',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
         email: loginData.email,

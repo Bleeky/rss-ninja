@@ -7,21 +7,21 @@ import NotFound from './NotFound';
 
 import './assets/scss/app.scss';
 
-const AppRouter = ({ history }) => (
+const AppRouter = () => (
   <Provider store={store}>
-    <BrowserRouter history={history}>
-      <div>
-        {
+    <BrowserRouter>
+      {({ router }) => (
+        <div>
+          {
           routes.map((route, i) => (
-            <MatchWithSubRoutes key={i} {...route} />
+            <MatchWithSubRoutes key={i} {...route} router={router} />
           ))
         }
-        <Miss component={NotFound} />
-      </div>
+          <Miss component={NotFound} />
+        </div>
+        )}
     </BrowserRouter>
   </Provider>
 );
-
-AppRouter.propTypes = { history: React.PropTypes.func };
 
 export default AppRouter;
