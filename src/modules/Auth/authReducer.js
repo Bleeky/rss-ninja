@@ -64,6 +64,7 @@ export default function authReducer(state = {
         ...state,
         token: action.token,
         id: action.id,
+        isLogged: true,
       };
     case 'PING_FAILURE':
       return {

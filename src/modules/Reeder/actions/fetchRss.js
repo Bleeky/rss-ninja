@@ -17,12 +17,11 @@ function fetchRss(id) {
     dispatch(fetchRssRequest());
     return fetch(`http://www.socialhive.fr:4242/me/feed/${id}`, {
       method: 'GET',
-      mode: 'no-cors',
       credentials: 'include',
-      headers: {
+      headers: new Headers({
         'Content-Type': 'application/json',
         Accept: 'application/json',
-      },
+      }),
     })
     .then((response) => {
       dispatch(fetchRssSuccess(response));

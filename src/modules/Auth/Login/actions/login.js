@@ -17,7 +17,6 @@ function login(loginData) {
     dispatch(loginRequest());
     return fetch('http://www.socialhive.fr:4242/auth/login', {
       method: 'POST',
-      mode: 'no-cors',
       credentials: 'include',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -28,10 +27,20 @@ function login(loginData) {
         password: loginData.password,
       }),
     })
+    .then((response) => {
+      console.log(response);
+      if (response.status !== 200) {
+        dispatch(loginFailure());
+        return response;
+      }
+      return response.json();
+    })
     .then(async (response) => {
-      await localStorage.setItem('id', response.id);
-      await localStorage.setItem('rssninjatoken', response.token);
-      dispatch(loginSuccess(response));
+      if (response.id && response.token) {
+        await localStorage.setItem('id', response.id);
+        await localStorage.setItem('rssninjatoken', response.token);
+        dispatch(loginSuccess(response));
+      }
     })
     .catch((error) => { dispatch(loginFailure(error)); });
   };

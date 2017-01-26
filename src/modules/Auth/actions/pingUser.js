@@ -7,9 +7,8 @@ const pingSuccess = response => ({
   response,
 });
 
-const pingFailure = error => ({
+const pingFailure = () => ({
   type: 'PING_FAILURE',
-  error,
 });
 
 function ping() {
@@ -17,19 +16,22 @@ function ping() {
     dispatch(pingRequest());
     return fetch('http://www.socialhive.fr:4242/auth/check', {
       method: 'GET',
-      mode: 'no-cors',
       credentials: 'include',
-      headers: {
+      headers: new Headers({
         'Content-Type': 'application/json',
         Accept: 'application/json',
-      },
+      }),
     })
     .then(async (response) => {
-      await localStorage.setItem('id', response.id);
-      await localStorage.setItem('rssninjatoken', response.token);
-      dispatch(pingSuccess(response));
+      if (response.status === 200) {
+        await localStorage.setItem('id', response.id);
+        await localStorage.setItem('rssninjatoken', response.token);
+        dispatch(pingSuccess(response));
+      } else {
+        dispatch(pingFailure());
+      }
     })
-    .catch((error) => { dispatch(pingFailure(error)); });
+    .catch(() => { dispatch(pingFailure()); });
   };
 }
 

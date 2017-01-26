@@ -17,15 +17,10 @@ function signup(signupData) {
     dispatch(signupRequest());
     return fetch('http://www.socialhive.fr:4242/auth/signup', {
       method: 'POST',
-      // mode: 'no-cors',
-      // credentials: 'include',
-      // credentials: 'same-origin',
+      credentials: 'include',
       headers: new Headers({
         Accept: 'application/json',
-        // 'Access-Control-Allow-Headers': '*',
-        // 'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
-        // 'Access-Control-Allow-Credentials': 'true',
       }),
       body: JSON.stringify({
         email: signupData.email,
@@ -35,13 +30,13 @@ function signup(signupData) {
         username: 'jc',
       }),
     })
+    .then(response => response.json())
     .then(async (response) => {
-      console.log(response);
       await localStorage.setItem('id', response.id);
       await localStorage.setItem('rssninjatoken', response.token);
       dispatch(signupSuccess(response));
     })
-    .catch((error) => { console.log('error', error); dispatch(signupFailure(error)); });
+    .catch((error) => { dispatch(signupFailure(error)); });
   };
 }
 

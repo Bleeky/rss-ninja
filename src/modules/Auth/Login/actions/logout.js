@@ -17,7 +17,6 @@ function logout() {
     dispatch(logoutRequest());
     return fetch('http://www.socialhive.fr:4242/auth/logout', {
       method: 'POST',
-      mode: 'no-cors',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
