@@ -7,6 +7,8 @@ import {
 class LoginView extends Component {
   static propTypes = {
     login: PropTypes.func,
+    cleanError: PropTypes.func,
+    error: PropTypes.string,
   };
 
   constructor(props) {
@@ -17,6 +19,17 @@ class LoginView extends Component {
     };
 
     this.login = ::this.login;
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.error) {
+      const x = document.getElementById('snackbar');
+      x.className = 'show';
+      setTimeout(() => {
+        x.className = x.className.replace('show', '');
+        this.props.cleanError();
+      }, 3000);
+    }
   }
 
   login(e) {
@@ -31,13 +44,18 @@ class LoginView extends Component {
     return (
       <div>
         Login
-        <input type="text" onChange={(e) => { this.setState({ email: e.target.value }); }} />
-        <input type="password" onChange={(e) => { this.setState({ password: e.target.value }); }} />
-        <button onClick={this.login}>Login</button>
+        <form>
+          <input type="text" onChange={(e) => { this.setState({ email: e.target.value }); }} />
+          <input type="password" onChange={(e) => { this.setState({ password: e.target.value }); }} />
+          <button type="submit" onClick={this.login}>Login</button>
+        </form>
         Dont have an account ? Signup
         <Link to={'/signup'}>
           here.
         </Link>
+        <div id="snackbar">
+          {this.props.error}
+        </div>
       </div>
     );
   }

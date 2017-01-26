@@ -73,6 +73,11 @@ export default function authReducer(state = {
         id: null,
         isLogged: false,
       };
+    case 'CLEAN_ERROR':
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }

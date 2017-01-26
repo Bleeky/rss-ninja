@@ -28,9 +28,8 @@ function login(loginData) {
       }),
     })
     .then((response) => {
-      console.log(response);
       if (response.status !== 200) {
-        dispatch(loginFailure());
+        dispatch(loginFailure('Could not login'));
         return response;
       }
       return response.json();

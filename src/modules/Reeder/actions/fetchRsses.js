@@ -23,6 +23,7 @@ function fetchRsses() {
         Accept: 'application/json',
       }),
     })
+    .then(response => response.json())
     .then((response) => {
       dispatch(fetchRssesSuccess(response));
     })

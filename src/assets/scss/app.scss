@@ -18,6 +18,7 @@ body {
     border-radius: 4px;
     outline: none;
     padding: 20px;
+    z-index: 1300;
 }
 
 .overlay {
@@ -38,15 +39,31 @@ body {
         height: 100vh;
     }
 
+    .webview {
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+
+    .loadingWebview {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: red;
+        z-index: 900;
+        display: none;
+    }
+
     .logout {
         position: absolute;
         top: 10px;
         right: 10px;
+        z-index: 1000;
     }
 
     .feeds {
         order: 1;
-        flex-basis: 20%;
+        flex-basis: 15%;
         align-self: stretch;
         border-right: 1px solid #000;
         overflow: scroll;
@@ -64,7 +81,7 @@ body {
 
     .content {
         order: 3;
-        flex-basis: 60%;
+        flex-basis: 65%;
         align-self: stretch;
         overflow: scroll;
         padding: 5px;
@@ -100,5 +117,71 @@ body {
         .active {
             background: green;
         }
+    }
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1100;
+    left: 50%;
+    bottom: 30px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    z-index: 1100;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
     }
 }
