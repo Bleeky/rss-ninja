@@ -19,10 +19,10 @@ function login(loginData) {
       method: 'POST',
       mode: 'no-cors',
       credentials: 'include',
-      headers: {
+      headers: new Headers({
         'Content-Type': 'application/json',
         Accept: 'application/json',
-      },
+      }),
       body: JSON.stringify({
         email: loginData.email,
         password: loginData.password,
