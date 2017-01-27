@@ -4,6 +4,8 @@ class SignupView extends Component {
   static propTypes = {
     isLogged: PropTypes.bool,
     signup: PropTypes.func,
+    cleanError: PropTypes.func,
+    error: PropTypes.string,
     router: PropTypes.shape(),
   };
 
@@ -19,7 +21,6 @@ class SignupView extends Component {
 
   componentWillMount() {
     if (this.props.isLogged) {
-      // browserHistory.push('/');
       this.props.router.transitionTo('/');
       return false;
     }
@@ -27,9 +28,19 @@ class SignupView extends Component {
     return true;
   }
 
+  componentWillUpdate(nextProps) {
+    if (nextProps.error) {
+      const x = document.getElementById('snackbar');
+      x.className = 'show';
+      setTimeout(() => {
+        x.className = x.className.replace('show', '');
+        this.props.cleanError();
+      }, 3000);
+    }
+  }
+
   componentDidUpdate() {
     if (this.props.isLogged) {
-      // browserHistory.push('/');
       this.props.router.transitionTo('/');
     }
   }
@@ -50,6 +61,9 @@ class SignupView extends Component {
           <input type="password" placeholder="password" onChange={(e) => { this.setState({ password: e.target.value }); }} />
           <button type="submit" className="loginBtn" onClick={this.signup}>Signup</button>
         </form>
+        <div id="snackbar">
+          {this.props.error}
+        </div>
       </div>
     );
   }

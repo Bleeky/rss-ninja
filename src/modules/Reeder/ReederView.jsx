@@ -25,9 +25,10 @@ class ReederView extends Component {
       showModal: false,
       url: '',
       name: '',
-      currentFeedEntry: null,
+      currentFeedEntry: {},
       feedsFilter: '',
       itemsFilter: '',
+      showIframe: false,
     };
     this.handleOpenModal = ::this.handleOpenModal;
     this.handleCloseModal = ::this.handleCloseModal;
@@ -76,7 +77,9 @@ class ReederView extends Component {
             contentLabel="Minimal Modal Example"
             className="modal"
             overlayClassName="overlay"
+            onRequestClose={this.handleCloseModal}
           >
+            <div className="modal-title">Add a new feed</div>
             <button className="modalBtn" onClick={this.handleCloseModal}>x</button>
             <form className="modalForm">
               <input type="text" placeholder="name" onChange={(e) => { this.setState({ name: e.target.value }); }} />
@@ -92,8 +95,7 @@ class ReederView extends Component {
           {this.props.feeds && this.props.feeds.map((feed, key) => (
             <a
               key={key} onClick={() => {
-                this.setState({ currentFeedEntry: null });
-                document.getElementById('webview').style.display = 'none';
+                this.setState({ currentFeedEntry: {} });
                 this.props.resetFeed();
                 this.props.fetchRss(feed.id);
               }}
@@ -104,18 +106,18 @@ class ReederView extends Component {
                     {feed.name}
                   </div>
                   <div className="feedActions">
-                    <a
+                    <div
                       onClick={(e) => {
                         e.stopPropagation();
                         e.preventDefault();
                         this.props.deleteRss(feed.id);
                         if (feed.id === this.props.currentFeed) {
-                          document.getElementById('webview').style.display = 'none';
+                          this.setState({ currentFeedEntry: {}, showIframe: false });
                         }
                       }}
                     >
                       <div className="trash icon" />
-                    </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -141,10 +143,9 @@ class ReederView extends Component {
             if (item.title.toLowerCase().includes(this.state.itemsFilter.toLowerCase())) {
               return (
                 <div
-                  key={key} className={`element ${item.link === this.state.currentFeedEntry ? 'active' : ''}`} onClick={() => {
-                    this.setState({ currentFeedEntry: item.link });
-                    document.getElementById('loadingWebview').style.display = 'flex';
-                    document.getElementById('webview').style.display = 'none';
+                  key={key} className={`element ${item.link === this.state.currentFeedEntry.link ? 'active' : ''}`} onClick={() => {
+                    this.setState({ currentFeedEntry: item, showIframe: false });
+                    document.getElementById('loadingWebview').style.display = 'none';
                   }}
                 >
                   <div className="date">
@@ -185,15 +186,31 @@ class ReederView extends Component {
                 <div className="double-bounce2" />
               </div>
             </div>
-            <iframe
-              id="webview"
-              src={this.state.currentFeedEntry}
-              className="webview"
-              onLoad={() => {
-                document.getElementById('loadingWebview').style.display = 'none';
-                document.getElementById('webview').style.display = 'block';
-              }}
-            />
+            {Object.keys(this.state.currentFeedEntry).length !== 0 && !this.state.showIframe &&
+              <div className="preview">
+                <div
+                  dangerouslySetInnerHTML={{ __html: this.state.currentFeedEntry.description }}
+                />
+                <button
+                  className="previewWebSourceBtn"
+                  onClick={() => {
+                    this.setState({ showIframe: true });
+                    document.getElementById('loadingWebview').style.display = 'flex';
+                  }}
+                >Show web-source</button>
+              </div>
+            }
+            {this.state.showIframe &&
+              <iframe
+                id="webview"
+                src={this.state.currentFeedEntry.link}
+                className="webview"
+                onLoad={() => {
+                  document.getElementById('loadingWebview').style.display = 'none';
+                  document.getElementById('webview').style.display = 'block';
+                }}
+              />
+            }
           </div>
         </div>
       </div>

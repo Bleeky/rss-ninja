@@ -21,10 +21,10 @@ if (env === 'production') {
       'process.env': { NODE_ENV: '"production"' },
     }),
 
-    new CopyWebpackPlugin([
-      { from: path.join(rootPath, './src', 'assets', 'img', 'background.jpg') },
-      { from: path.join(rootPath, './src', 'assets', 'img', 'rss-ninja.png') },
-    ]),
+    // new CopyWebpackPlugin([
+    //   { from: path.join(rootPath, './src', 'assets', 'img', 'background.jpg') },
+    //   { from: path.join(rootPath, './src', 'assets', 'img', 'rss-ninja.png') },
+    // ]),
   ];
 } else {
   entry = [
@@ -39,10 +39,10 @@ if (env === 'production') {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new CopyWebpackPlugin([
-      { from: path.join(rootPath, './src', 'assets', 'img', 'background.jpg') },
-      { from: path.join(rootPath, './src', 'assets', 'img', 'rss-ninja.png') },
-    ]),
+    // new CopyWebpackPlugin([
+    //   { from: path.join(rootPath, './src', 'assets', 'img', 'background.jpg') },
+    //   { from: path.join(rootPath, './src', 'assets', 'img', 'rss-ninja.png') },
+    // ]),
   ];
 }
 
@@ -98,7 +98,7 @@ export default {
       },
 
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.jpe?g$|\.gif$|\.png$/,
         loader: 'file-loader?name=assets/img/[name].[ext]',
       },
     ],

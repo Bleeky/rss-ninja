@@ -15,6 +15,10 @@ const signupFailure = error => ({
 function signup(signupData) {
   return (dispatch) => {
     dispatch(signupRequest());
+    if (!signupData.email || !signupData.password) {
+      dispatch(signupFailure('No crendentials set'));
+      return null;
+    }
     return fetch('http://www.socialhive.fr:4242/auth/signup', {
       method: 'POST',
       credentials: 'include',

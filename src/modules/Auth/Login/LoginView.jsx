@@ -43,7 +43,7 @@ class LoginView extends Component {
   render() {
     return (
       <div className="loginView">
-        <img src="rss-ninja.png" className="logo" />
+        <img alt="logo" src="assets/img/logo.png" className="logo" />
         <form className="loginForm">
           <input type="text" placeholder="email" onChange={(e) => { this.setState({ email: e.target.value }); }} />
           <input type="password" placeholder="password" onChange={(e) => { this.setState({ password: e.target.value }); }} />
