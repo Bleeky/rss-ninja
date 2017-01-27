@@ -1,33 +1,35 @@
-@import url( 'https://fonts.googleapis.com/css?family=Roboto:300,300i');
+$softgrey: rgb(244, 247, 249);
+$green: rgb(2, 195, 134);
+@import url( 'https://fonts.googleapis.com/css?family=Roboto:300, 400');
+@import "login";
+@import "snackbar";
+@import "loader";
+@import "icons";
+@import "modal";
 
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    font-weight:: 300;
+    font-weight: 300;
 }
 
-.modal {
-    position: absolute;
-    top: 30%;
-    left: 20%;
-    right: 20%;
-    bottom: 30%;
-    border: 1px solid rgb(204, 204, 204);
-    background: rgb(255, 255, 255);
-    overflow: auto;
-    border-radius: 4px;
+input[type="password"],
+input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.3s;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    vertical-align: middle;
     outline: none;
-    padding: 20px;
-    z-index: 1300;
 }
 
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(37, 35, 35, 0.81);
+input[type="password"].focus,
+input[type="password"]:focus,
+input[type="text"].focus,
+input[type="text"]:focus {
+    border-bottom: solid 2px $green;
 }
 
 .App {
@@ -43,40 +45,63 @@ body {
         width: 100%;
         height: 100%;
         display: none;
+        border: none;
+        padding: 5px;
     }
 
     .loadingWebview {
-        position: fixed;
+        position: static;
         width: 100%;
         height: 100%;
-        background: red;
+        background: white;
         z-index: 900;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         display: none;
     }
 
     .logout {
-        position: absolute;
-        top: 10px;
-        right: 10px;
         z-index: 1000;
+        text-align: right;
+        height: 100%;
+        border: none;
+        margin-left: auto;
+        padding: 0 30px;
+        background: $green;
+        box-shadow: 0 0 180px 0 rgba(0, 0, 0, 0.20);
+        border-bottom: 1px solid transparent;
+        color: white;
+        font-size: 15px;
+        cursor: pointer;
+        -webkit-transition: all 0.1s ease-in-out;
+        -moz-transition: all 0.1s ease-in-out;
+        transition: all 0.1s ease-in-out;
+
+        &:hover {
+            -webkit-transition: all 0.1s ease-in-out;
+            -moz-transition: all 0.1s ease-in-out;
+            transition: all 0.1s ease-in-out;
+            color: black;
+        }
     }
 
     .feeds {
         order: 1;
         flex-basis: 15%;
         align-self: stretch;
-        border-right: 1px solid #000;
         overflow: scroll;
-        padding: 5px;
+        background: $softgrey;
+        border-right: 1px solid rgb(235, 239, 241);
     }
 
     .feed {
         order: 2;
         flex-basis: 20%;
         align-self: stretch;
-        border-right: 1px solid #000;
         overflow: scroll;
-        padding: 5px;
+        background: $softgrey;
+        border-right: 1px solid rgb(235, 239, 241);
     }
 
     .content {
@@ -84,104 +109,136 @@ body {
         flex-basis: 65%;
         align-self: stretch;
         overflow: scroll;
-        padding: 5px;
     }
 
-    .search {
-        height: 20px;
-        position: fixed;
-    }
-
-    .add {
-        outline: none;
-    }
-
-    .element {
-        padding: 5px;
-        text-align: justify;
+    .topBar {
+        text-align: center;
+        height: 40px;
         border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        .title {
-            font-size: 15px;
+        &.green {
+            background: $green;
+            box-shadow: 0 0 180px 0 rgba(0, 0, 0, 0.20);
+            border-bottom: 1px solid transparent;
         }
 
-        .description {
-            font-size: 13px;
-            font-style: italic;
+        &.softgrey {
+            background: $softgrey;
+        }
+
+        .add {
+            border: none;
+            background-color: transparent;
+            outline: none;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 300;
+            vertical-align: middle;
+            -webkit-transition: all 0.1s ease-in-out;
+            -moz-transition: all 0.1s ease-in-out;
+            padding: 0;
+            transition: all 0.1s ease-in-out;
+            color: white;
+        }
+
+        button:hover {
+            color: #000;
+            -webkit-transition: all 0.1s ease-in-out;
+            -moz-transition: all 0.1s ease-in-out;
+            transition: all 0.1s ease-in-out;
+        }
+
+        input {
+            background: transparent;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            padding: 0;
+            font-size: 15px;
+            font-weight: 100;
         }
     }
 
     .list-contents {
-        margin-top: 20px;
+        .element {
+            padding: 15px 20px;
+            text-align: justify;
+            cursor: pointer;
 
-        .active {
-            background: green;
+            .date {
+                font-size: 12px;
+                font-weight: 200;
+            }
+
+            .title {
+                font-size: 15px;
+                font-weight: 400;
+                margin-top: 5px;
+            }
+
+            &.active {
+                background: white;
+                -webkit-box-shadow: 0 0 181px 0 rgba(0,0,0,0.20);
+                -moz-box-shadow: 0 0 181px 0 rgba(0,0,0,0.20);
+                box-shadow: 0 0 181px 0 rgba(0,0,0,0.20);
+            }
+
+            &:hover:not(.active) {
+                background: #e1e1e1;
+                -webkit-transition: all 0.1s ease-in-out;
+                -moz-transition: all 0.1s ease-in-out;
+                transition: all 0.1s ease-in-out;
+            }
         }
-    }
-}
 
-#snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1100;
-    left: 50%;
-    bottom: 30px;
-}
+        &.feedList {
+            margin-top: 10px;
+        }
 
-#snackbar.show {
-    visibility: visible;
-    z-index: 1100;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-@-webkit-keyframes fadein {
-    from {
-        bottom: 0;
-        opacity: 0;
-    }
+        .feedEntry {
+            padding: 10px 25px;
 
-    to {
-        bottom: 30px;
-        opacity: 1;
-    }
-}
-@keyframes fadein {
-    from {
-        bottom: 0;
-        opacity: 0;
-    }
+            &.active {
+                font-weight: bold;
+                -webkit-transition: all 0.1s ease-in-out;
+                -moz-transition: all 0.1s ease-in-out;
+                transition: all 0.1s ease-in-out;
+            }
 
-    to {
-        bottom: 30px;
-        opacity: 1;
-    }
-}
-@-webkit-keyframes fadeout {
-    from {
-        bottom: 30px;
-        opacity: 1;
-    }
+            &:hover {
+                .feedContainer {
+                    .feedActions {
+                        visibility: visible;
+                        opacity: 0.2;
+                        transition: visibility 0s, opacity 0.5s linear;
+                    }
+                }
+            }
 
-    to {
-        bottom: 0;
-        opacity: 0;
-    }
-}
-@keyframes fadeout {
-    from {
-        bottom: 30px;
-        opacity: 1;
-    }
+            .feedContainer {
+                display: flex;
+                cursor: pointer;
 
-    to {
-        bottom: 0;
-        opacity: 0;
+                .feedName {}
+
+                .feedActions {
+                    margin-left: auto;
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: visibility 0s, opacity 0.5s linear;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: 1;
+                        -webkit-transition: all 0.1s ease-in-out;
+                        -moz-transition: all 0.1s ease-in-out;
+                        transition: all 0.1s ease-in-out;
+                    }
+                }
+            }
+        }
     }
 }

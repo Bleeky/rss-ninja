@@ -42,12 +42,12 @@ class LoginView extends Component {
 
   render() {
     return (
-      <div>
-        Login
-        <form>
-          <input type="text" onChange={(e) => { this.setState({ email: e.target.value }); }} />
-          <input type="password" onChange={(e) => { this.setState({ password: e.target.value }); }} />
-          <button type="submit" onClick={this.login}>Login</button>
+      <div className="loginView">
+        <img src="rss-ninja.png" className="logo" />
+        <form className="loginForm">
+          <input type="text" placeholder="email" onChange={(e) => { this.setState({ email: e.target.value }); }} />
+          <input type="password" placeholder="password" onChange={(e) => { this.setState({ password: e.target.value }); }} />
+          <button type="submit" className="loginBtn" onClick={this.login}>Login</button>
         </form>
         Dont have an account ? Signup
         <Link to={'/signup'}>

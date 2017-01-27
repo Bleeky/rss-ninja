@@ -1,0 +1,50 @@
+.loginView {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background: url("../img/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+
+    .logo {
+        width: 100px;
+        height: auto;
+    }
+
+    .loginForm {
+        height: 30px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        button,
+        input {
+            margin-right: 5px;
+            font-size: 16px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+    }
+
+    .loginBtn {
+        background: white;
+        cursor: pointer;
+        padding: 0;
+        border: none;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        outline: none;
+        padding: 10px;
+        border-radius: 2px;
+
+        &:hover {
+            background: $green;
+            color: black;
+        }
+    }
+}

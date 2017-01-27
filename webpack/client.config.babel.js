@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const env = process.env.NODE_ENV || 'developpement';
 const rootPath = path.resolve(__dirname, '..');
@@ -19,6 +20,11 @@ if (env === 'production') {
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: '"production"' },
     }),
+
+    new CopyWebpackPlugin([
+      { from: path.join(rootPath, './src', 'assets', 'img', 'background.jpg') },
+      { from: path.join(rootPath, './src', 'assets', 'img', 'rss-ninja.png') },
+    ]),
   ];
 } else {
   entry = [
@@ -33,6 +39,10 @@ if (env === 'production') {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
+    new CopyWebpackPlugin([
+      { from: path.join(rootPath, './src', 'assets', 'img', 'background.jpg') },
+      { from: path.join(rootPath, './src', 'assets', 'img', 'rss-ninja.png') },
+    ]),
   ];
 }
 
@@ -85,6 +95,11 @@ export default {
       {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&name=fonts/[name].[ext]',
+      },
+
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader?name=assets/img/[name].[ext]',
       },
     ],
   },

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactModal from 'react-modal';
+import moment from 'moment';
 
 class ReederView extends Component {
   static propTypes = {
@@ -9,6 +10,7 @@ class ReederView extends Component {
     addRss: PropTypes.func,
     deleteRss: PropTypes.func,
     cleanError: PropTypes.func,
+    resetFeed: PropTypes.func,
     feeds: PropTypes.arrayOf(PropTypes.shape()),
     feed: PropTypes.shape(),
     currentFeed: PropTypes.number,
@@ -67,52 +69,58 @@ class ReederView extends Component {
   renderFeedsList() {
     return (
       <div className="feeds">
-        <div className="search">
-          <input placeholder="Search" onChange={(e) => { this.setState({ feedsFilter: e.target.value }); }} />
-          <button onClick={this.handleOpenModal} className="add">Add</button>
+        <div className="topBar green">
+          <button onClick={this.handleOpenModal} className="add">Add +</button>
           <ReactModal
             isOpen={this.state.showModal}
             contentLabel="Minimal Modal Example"
             className="modal"
             overlayClassName="overlay"
           >
-            <button onClick={this.handleCloseModal}>Close Modal</button>
-            <form>
+            <button className="modalBtn" onClick={this.handleCloseModal}>x</button>
+            <form className="modalForm">
               <input type="text" placeholder="name" onChange={(e) => { this.setState({ name: e.target.value }); }} />
               <input type="text" placeholder="url" onChange={(e) => { this.setState({ url: e.target.value }); }} />
-              <button type="submit" onClick={this.handleAddRss}>Add Rss</button>
+              <button type="submit" className="submitRssBtn" onClick={this.handleAddRss}>ADD</button>
             </form>
           </ReactModal>
         </div>
-        <div className="list-contents">
+        <div className="list-contents feedList">
           {this.props.fetchingRsses &&
             <div className="element" >Loading</div>
           }
-          {this.props.feeds && this.props.feeds.map((feed, key) => {
-            if (feed.name.toLowerCase().includes(this.state.feedsFilter.toLowerCase())) {
-              return (
-                <a
-                  key={key} onClick={() => {
-                    document.getElementById('webview').style.display = 'none';
-                    this.setState({ currentFeedEntry: null });
-                    this.props.fetchRss(feed.id);
-                  }}
-                >
-                  <div className={`element ${feed.id === this.props.currentFeed ? 'active' : ''}`} >
+          {this.props.feeds && this.props.feeds.map((feed, key) => (
+            <a
+              key={key} onClick={() => {
+                this.setState({ currentFeedEntry: null });
+                document.getElementById('webview').style.display = 'none';
+                this.props.resetFeed();
+                this.props.fetchRss(feed.id);
+              }}
+            >
+              <div className={`feedEntry ${feed.id === this.props.currentFeed ? 'active' : ''}`} >
+                <div className="feedContainer">
+                  <div className="feedName">
                     {feed.name}
-                    <button
+                  </div>
+                  <div className="feedActions">
+                    <a
                       onClick={(e) => {
                         e.stopPropagation();
                         e.preventDefault();
                         this.props.deleteRss(feed.id);
+                        if (feed.id === this.props.currentFeed) {
+                          document.getElementById('webview').style.display = 'none';
+                        }
                       }}
-                    >-</button>
+                    >
+                      <div className="trash icon" />
+                    </a>
                   </div>
-                </a>
-              );
-            }
-            return null;
-          },
+                </div>
+              </div>
+            </a>
+              ),
           )}
         </div>
       </div>
@@ -122,8 +130,8 @@ class ReederView extends Component {
   renderFeedItems() {
     return (
       <div className="feed">
-        <div className="search">
-          <input placeholder="Search" onChange={(e) => { this.setState({ itemsFilter: e.target.value }); }} />
+        <div className="topBar softgrey">
+          <input type="text" placeholder="Search" onChange={(e) => { this.setState({ itemsFilter: e.target.value }); }} />
         </div>
         <div className="list-contents">
           {this.props.fetchingRss &&
@@ -134,11 +142,14 @@ class ReederView extends Component {
               return (
                 <div
                   key={key} className={`element ${item.link === this.state.currentFeedEntry ? 'active' : ''}`} onClick={() => {
-                    document.getElementById('loadingWebview').style.display = 'block';
-                    document.getElementById('webview').style.display = 'block';
                     this.setState({ currentFeedEntry: item.link });
+                    document.getElementById('loadingWebview').style.display = 'flex';
+                    document.getElementById('webview').style.display = 'none';
                   }}
                 >
+                  <div className="date">
+                    {moment(item.date_published).format('MMM Do YYYY, h:mma')}
+                  </div>
                   <div className="title">
                     {item.title}
                   </div>
@@ -155,23 +166,35 @@ class ReederView extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div id="snackbar">
-          {this.props.error}
-        </div>
-        <button className="logout" onClick={this.props.logout}>Logout</button>
-        {this.renderFeedsList()}
-        {this.renderFeedItems()}
-        <div className="content">
-          <div id="loadingWebview" className="loadingWebview">LOADING</div>
-          <iframe
-            id="webview"
-            src={this.state.currentFeedEntry}
-            className="webview"
-            onLoad={() => {
-              document.getElementById('loadingWebview').style.display = 'none';
-            }}
-          />
+      <div>
+        <div className="container">
+          <div id="snackbar">
+            {this.props.error}
+          </div>
+          {this.renderFeedsList()}
+          {this.renderFeedItems()}
+          <div className="content">
+            <div className="topBar">
+              <button className="logout" onClick={this.props.logout}>
+                Logout
+              </button>
+            </div>
+            <div id="loadingWebview" className="loadingWebview">
+              <div className="spinner">
+                <div className="double-bounce1" />
+                <div className="double-bounce2" />
+              </div>
+            </div>
+            <iframe
+              id="webview"
+              src={this.state.currentFeedEntry}
+              className="webview"
+              onLoad={() => {
+                document.getElementById('loadingWebview').style.display = 'none';
+                document.getElementById('webview').style.display = 'block';
+              }}
+            />
+          </div>
         </div>
       </div>
     );

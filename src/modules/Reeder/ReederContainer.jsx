@@ -4,7 +4,14 @@ import { connect } from 'react-redux';
 import ReederView from './ReederView';
 
 import { logout } from '../Auth/Login/actions';
-import { fetchRsses, addRss, fetchRss, cleanError, deleteRss } from './actions';
+import {
+  fetchRsses,
+  addRss,
+  fetchRss,
+  cleanError,
+  deleteRss,
+  resetFeed,
+} from './actions';
 
 const mapStateToProps = state => ({
   feeds: state.reeder.feeds,
@@ -22,6 +29,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   addRss,
   deleteRss,
   cleanError,
+  resetFeed,
 }, dispatch);
 
 const ReederContainer = connect(mapStateToProps, mapDispatchToProps)(ReederView);

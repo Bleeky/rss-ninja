@@ -1,0 +1,80 @@
+.modal {
+    position: absolute;
+    top: 30%;
+    right: 25%;
+    left: 25%;
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+    z-index: 1300;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .modalForm {
+        button,
+        input {
+            margin-right: 5px;
+            font-size: 16px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+    }
+
+    .modalBtn {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        border: none;
+        background-color: white;
+        outline: none;
+        cursor: pointer;
+        font-size: 25px;
+        font-weight: 100;
+        vertical-align: middle;
+        -webkit-transition: all 0.1s ease-in-out;
+        -moz-transition: all 0.1s ease-in-out;
+        padding: 0;
+        transition: all 0.1s ease-in-out;
+
+        &:hover {
+            color: $green;
+        }
+    }
+
+    .submitRssBtn {
+        background: white;
+        cursor: pointer;
+        padding: 0;
+        border: none;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        outline: none;
+        padding: 10px;
+        border-radius: 2px;
+
+        &:hover {
+            background: $green;
+            color: black;
+        }
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(37, 35, 35, 0.81);
+    z-index: 1300;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}

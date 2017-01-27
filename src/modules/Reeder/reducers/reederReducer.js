@@ -61,6 +61,7 @@ export default function reederReducer(state = {
       return {
         ...state,
         feeds: action.response,
+        feed: state.currentFeed === action.id ? {} : state.feed,
       };
     case 'DELETE_RSS_FAILURE':
       return {
@@ -71,6 +72,12 @@ export default function reederReducer(state = {
       return {
         ...state,
         error: null,
+      };
+    case 'RESET_FEED':
+      return {
+        ...state,
+        error: null,
+        feed: {},
       };
     default:
       return state;

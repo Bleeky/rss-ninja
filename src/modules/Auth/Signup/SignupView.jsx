@@ -44,11 +44,11 @@ class SignupView extends Component {
 
   render() {
     return (
-      <div>
-        <form>
+      <div className="loginView">
+        <form className="loginForm">
           <input type="text" placeholder="email" onChange={(e) => { this.setState({ email: e.target.value }); }} />
           <input type="password" placeholder="password" onChange={(e) => { this.setState({ password: e.target.value }); }} />
-          <button type="submit" onClick={this.signup}>Signup</button>
+          <button type="submit" className="loginBtn" onClick={this.signup}>Signup</button>
         </form>
       </div>
     );
