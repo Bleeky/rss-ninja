@@ -1,3 +1,5 @@
+import APIPath from '../../../config';
+
 const fetchRssesRequest = () => ({
   type: 'FETCH_RSSES_REQUEST',
 });
@@ -15,7 +17,7 @@ const fetchRssesFailure = error => ({
 function fetchRsses() {
   return (dispatch) => {
     dispatch(fetchRssesRequest());
-    return fetch('http://www.socialhive.fr:4242/me/feeds', {
+    return fetch(`${APIPath}/me/feeds`, {
       method: 'GET',
       credentials: 'include',
       headers: new Headers({

@@ -1,3 +1,5 @@
+import APIPath from '../../../../config';
+
 const loginRequest = () => ({
   type: 'LOGIN_REQUEST',
 });
@@ -15,7 +17,7 @@ const loginFailure = error => ({
 function login(loginData) {
   return (dispatch) => {
     dispatch(loginRequest());
-    return fetch('http://www.socialhive.fr:4242/auth/login', {
+    return fetch(`${APIPath}/auth/login`, {
       method: 'POST',
       credentials: 'include',
       headers: new Headers({

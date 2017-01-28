@@ -1,3 +1,5 @@
+import APIPath from '../../../config';
+
 const addRssRequest = () => ({
   type: 'ADD_RSS_REQUEST',
 });
@@ -15,7 +17,7 @@ const addRssFailure = error => ({
 function addRss(rssInfos) {
   return (dispatch) => {
     dispatch(addRssRequest());
-    return fetch('http://www.socialhive.fr:4242/me/feeds', {
+    return fetch(`${APIPath}/me/feeds`, {
       method: 'PUT',
       credentials: 'include',
       headers: new Headers({
@@ -29,7 +31,6 @@ function addRss(rssInfos) {
     })
     .then(response => response.json())
     .then((response) => {
-      console.log(response);
       dispatch(addRssSuccess(response));
     })
     .catch((error) => { dispatch(addRssFailure(error)); });

@@ -74,6 +74,8 @@ input[type="text"]:focus {
         overflow: scroll;
         background: $softgrey;
         border-right: 1px solid rgb(235, 239, 241);
+        display: flex;
+        flex-direction: column;
     }
 
     .feed {
@@ -141,6 +143,7 @@ input[type="text"]:focus {
             padding: 15px 20px;
             text-align: justify;
             cursor: pointer;
+            position: relative;
 
             .date {
                 font-size: 12px;
@@ -150,7 +153,20 @@ input[type="text"]:focus {
             .title {
                 font-size: 15px;
                 font-weight: 400;
-                margin-top: 5px;
+                margin-top: 7px;
+            }
+
+            .bookmark,
+            .bookmark-solid {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                opacity: 0.3;
+                transition: visibility 0s, opacity 0.5s linear;
+
+                &:hover {
+                    opacity: 0.8;
+                }
             }
 
             &.active {
@@ -170,10 +186,34 @@ input[type="text"]:focus {
 
         &.feedList {
             margin-top: 10px;
+            max-height: 50%;
+            overflow: scroll;
+        }
+
+        &.user {
+            border-top: 1px solid rgb(235, 239, 241);
+            margin-top: auto;
+            max-height: 30%;
+            overflow: scroll;
+
+            .userContent {
+                padding: 15px 20px;
+                text-align: justify;
+                cursor: pointer;
+                position: relative;
+
+                &.active {
+                    font-weight: bold;
+                    -webkit-transition: all 0.1s ease-in-out;
+                    -moz-transition: all 0.1s ease-in-out;
+                    transition: all 0.1s ease-in-out;
+                }
+            }
         }
 
         .feedEntry {
             padding: 10px 25px;
+            position: relative;
 
             &.active {
                 font-weight: bold;

@@ -28,6 +28,7 @@ export default function authReducer(state = {
         isLogged: true,
         id: action.response.id,
         token: action.response.token,
+        username: action.response.email,
       };
     case 'LOGIN_FAILURE':
       return {
@@ -62,8 +63,9 @@ export default function authReducer(state = {
     case 'PING_SUCCESS':
       return {
         ...state,
-        token: action.token,
-        id: action.id,
+        token: action.response.token,
+        id: action.response.id,
+        username: action.response.email,
         isLogged: true,
       };
     case 'PING_FAILURE':

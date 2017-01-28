@@ -4,19 +4,24 @@ import moment from 'moment';
 
 class ReederView extends Component {
   static propTypes = {
-    logout: PropTypes.func,
-    fetchRsses: PropTypes.func,
-    fetchRss: PropTypes.func,
     addRss: PropTypes.func,
-    deleteRss: PropTypes.func,
+    bookmarkedEntries: PropTypes.arrayOf(PropTypes.shape()),
+    bookmarkEntry: PropTypes.func,
     cleanError: PropTypes.func,
-    resetFeed: PropTypes.func,
-    feeds: PropTypes.arrayOf(PropTypes.shape()),
-    feed: PropTypes.shape(),
     currentFeed: PropTypes.number,
+    deleteBookmark: PropTypes.func,
+    deleteRss: PropTypes.func,
     error: PropTypes.string,
+    feed: PropTypes.shape(),
+    feeds: PropTypes.arrayOf(PropTypes.shape()),
     fetchingRss: PropTypes.bool,
     fetchingRsses: PropTypes.bool,
+    fetchRss: PropTypes.func,
+    fetchRsses: PropTypes.func,
+    getBookmarks: PropTypes.func,
+    logout: PropTypes.func,
+    resetFeed: PropTypes.func,
+    setFeed: PropTypes.func,
   };
 
   constructor(props) {
@@ -37,6 +42,7 @@ class ReederView extends Component {
 
   componentWillMount() {
     this.props.fetchRsses();
+    this.props.getBookmarks();
   }
 
   componentWillUpdate(nextProps) {
@@ -125,8 +131,26 @@ class ReederView extends Component {
               ),
           )}
         </div>
+        <div className="list-contents user">
+          <div
+            className={`userContent ${this.props.currentFeed === -1 ? 'active' : ''}`} onClick={() => {
+              this.setState({ currentFeedEntry: {} });
+              this.props.resetFeed();
+              this.props.setFeed(this.props.bookmarkedEntries, -1);
+            }}
+          >Bookmarks</div>
+        </div>
       </div>
     );
+  }
+
+  renderBookmark(item) {
+    const bookmark = this.props.bookmarkedEntries.find(
+      bookmarkEntry => bookmarkEntry.link === item.link,
+    );
+    return bookmark ?
+      <div className="bookmark-solid icon" onClick={() => { this.props.deleteBookmark(bookmark.id); }} /> :
+      <div className="bookmark icon" onClick={() => { this.props.bookmarkEntry(item); }} />;
   }
 
   renderFeedItems() {
@@ -148,6 +172,9 @@ class ReederView extends Component {
                     document.getElementById('loadingWebview').style.display = 'none';
                   }}
                 >
+                  <div className="bookmark">
+                    {this.renderBookmark(item)}
+                  </div>
                   <div className="date">
                     {moment(item.date_published).format('MMM Do YYYY, h:mma')}
                   </div>

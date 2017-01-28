@@ -1,3 +1,5 @@
+import APIPath from '../../../config';
+
 const deleteRssRequest = () => ({
   type: 'DELETE_RSS_REQUEST',
 });
@@ -16,7 +18,7 @@ const deleteRssFailure = error => ({
 function deleteRss(id) {
   return (dispatch) => {
     dispatch(deleteRssRequest());
-    return fetch(`http://www.socialhive.fr:4242/me/feeds/${id}`, {
+    return fetch(`${APIPath}/me/feeds/${id}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: new Headers({

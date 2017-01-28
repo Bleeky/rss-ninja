@@ -1,3 +1,5 @@
+import APIPath from '../../../../config';
+
 const logoutRequest = () => ({
   type: 'LOGOUT_REQUEST',
 });
@@ -15,7 +17,7 @@ const logoutFailure = error => ({
 function logout() {
   return (dispatch) => {
     dispatch(logoutRequest());
-    return fetch('http://www.socialhive.fr:4242/auth/logout', {
+    return fetch(`${APIPath}/auth/logout`, {
       method: 'POST',
       credentials: 'include',
       headers: {

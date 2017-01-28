@@ -5,31 +5,41 @@ import ReederView from './ReederView';
 
 import { logout } from '../Auth/Login/actions';
 import {
-  fetchRsses,
   addRss,
-  fetchRss,
+  bookmarkEntry,
   cleanError,
+  deleteBookmark,
   deleteRss,
+  fetchRss,
+  fetchRsses,
+  getBookmarks,
   resetFeed,
+  setFeed,
 } from './actions';
 
 const mapStateToProps = state => ({
-  feeds: state.reeder.feeds,
-  feed: state.reeder.feed,
+  bookmarkedEntries: state.reeder.bookmarkedEntries,
   currentFeed: state.reeder.currentFeed,
   error: state.reeder.error,
+  feed: state.reeder.feed,
+  feeds: state.reeder.feeds,
   fetchingRss: state.reeder.fetchingRss,
   fetchingRsses: state.reeder.fetchingRsses,
+  loggedUser: state.auth.username,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  logout,
-  fetchRsses,
-  fetchRss,
   addRss,
-  deleteRss,
+  bookmarkEntry,
   cleanError,
+  deleteBookmark,
+  deleteRss,
+  fetchRss,
+  fetchRsses,
+  getBookmarks,
+  logout,
   resetFeed,
+  setFeed,
 }, dispatch);
 
 const ReederContainer = connect(mapStateToProps, mapDispatchToProps)(ReederView);

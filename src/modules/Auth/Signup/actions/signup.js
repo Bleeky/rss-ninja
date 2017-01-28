@@ -1,3 +1,5 @@
+import APIPath from '../../../../config';
+
 const signupRequest = () => ({
   type: 'SIGNUP_REQUEST',
 });
@@ -19,7 +21,7 @@ function signup(signupData) {
       dispatch(signupFailure('No crendentials set'));
       return null;
     }
-    return fetch('http://www.socialhive.fr:4242/auth/signup', {
+    return fetch(`${APIPath}/auth/signup`, {
       method: 'POST',
       credentials: 'include',
       headers: new Headers({

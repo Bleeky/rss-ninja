@@ -2,6 +2,7 @@ export default function reederReducer(state = {
   feeds: [],
   feed: {},
   currentFeed: null,
+  bookmarkedEntries: [],
 }, action) {
   switch (action.type) {
     case 'FETCH_RSS_REQUEST':
@@ -68,6 +69,48 @@ export default function reederReducer(state = {
         ...state,
         error: action.error,
       };
+    case 'GET_BOOKMARKS_REQUEST':
+      return {
+        ...state,
+      };
+    case 'GET_BOOKMARKS_SUCCESS':
+      return {
+        ...state,
+        bookmarkedEntries: action.response,
+      };
+    case 'GET_BOOKMARKS_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+      };
+    case 'BOOKMARK_ENTRY_REQUEST':
+      return {
+        ...state,
+      };
+    case 'BOOKMARK_ENTRY_SUCCESS':
+      return {
+        ...state,
+        bookmarkedEntries: [...state.bookmarkedEntries, action.response],
+      };
+    case 'BOOKMARK_ENTRY_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+      };
+    case 'DELETE_BOOKMARK_REQUEST':
+      return {
+        ...state,
+      };
+    case 'DELETE_BOOKMARK_SUCCESS':
+      return {
+        ...state,
+        bookmarkedEntries: action.response,
+      };
+    case 'DELETE_BOOKMARK_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+      };
     case 'CLEAN_ERROR':
       return {
         ...state,
@@ -78,6 +121,13 @@ export default function reederReducer(state = {
         ...state,
         error: null,
         feed: {},
+      };
+    case 'SET_FEED':
+      return {
+        ...state,
+        error: null,
+        feed: { items: action.feed },
+        currentFeed: action.feedId,
       };
     default:
       return state;

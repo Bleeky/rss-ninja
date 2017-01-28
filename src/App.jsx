@@ -17,7 +17,6 @@ class App extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('rssninjatoken');
-    console.log(token);
     this.props.setToken(token);
     this.props.pingUser();
   }
