@@ -14,7 +14,7 @@ The local server will serve on `localhost:8080`.
 
 ### Production environment
 ```
-export NODE_ENV=development
+export NODE_ENV=production
 ```
 ```javascript
 npm install
