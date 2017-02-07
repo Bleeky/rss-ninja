@@ -1,23 +1,22 @@
-import addRss from './addRss';
-import bookmarkEntry from './bookmarkEntry';
+import { addFeeds, deleteFeeds, fetchFeeds, setFeedsEntry } from './Feeds';
 import cleanError from './cleanError';
-import deleteBookmark from './deleteBookmark';
-import deleteRss from './deleteRss';
-import fetchRss from './fetchRss';
-import fetchRsses from './fetchRsses';
-import getBookmarks from './getBookmarks';
-import resetFeed from './resetFeed';
-import setFeed from './setFeed';
+import setError from './setError';
+import { getBookmarks, bookmarkEntry, deleteBookmark } from './Bookmarks';
+import { setFeedEntry, showIframe } from './FeedEntry';
+import { resetFeed, fetchFeed } from './Feed';
 
 export {
-  addRss,
+  addFeeds,
   bookmarkEntry,
   cleanError,
   deleteBookmark,
-  deleteRss,
-  fetchRss,
-  fetchRsses,
+  deleteFeeds,
+  fetchFeed,
+  fetchFeeds,
   getBookmarks,
   resetFeed,
-  setFeed,
+  setFeedsEntry,
+  setFeedEntry,
+  showIframe,
+  setError,
 };

@@ -1,4 +1,4 @@
-import APIPath from '../../../config';
+import APIPath from '../../../../config';
 
 const bookmarkEntryRequest = () => ({
   type: 'BOOKMARK_ENTRY_REQUEST',

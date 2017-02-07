@@ -1,4 +1,4 @@
-import APIPath from '../../../config';
+import APIPath from '../../../../config';
 
 const deleteBookmarkRequest = () => ({
   type: 'DELETE_BOOKMARK_REQUEST',

@@ -1,5 +1,8 @@
 # Rss-Ninja
 
+Front-end of the project Rss-Ninja. Using Redux architecture as well as View/Container pattern.
+Need a back-end to run properly (check out @ganitzch).
+
 ## How to launch
 
 There is 2 differents way to use the project.

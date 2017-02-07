@@ -1,4 +1,4 @@
-import APIPath from '../../../config';
+import APIPath from '../../../../config';
 
 const getBookmarksRequest = () => ({
   type: 'GET_BOOKMARKS_REQUEST',

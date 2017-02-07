@@ -1,22 +1,22 @@
-import APIPath from '../../../config';
+import APIPath from '../../../../config';
 
-const addRssRequest = () => ({
-  type: 'ADD_RSS_REQUEST',
+const addFeedsRequest = () => ({
+  type: 'ADD_FEEDS_REQUEST',
 });
 
-const addRssSuccess = response => ({
-  type: 'ADD_RSS_SUCCESS',
+const addFeedsSuccess = response => ({
+  type: 'ADD_FEEDS_SUCCESS',
   response,
 });
 
-const addRssFailure = error => ({
-  type: 'ADD_RSS_FAILURE',
+const addFeedsFailure = error => ({
+  type: 'ADD_FEEDS_FAILURE',
   error,
 });
 
-function addRss(rssInfos) {
+function addFeeds(rssInfos) {
   return (dispatch) => {
-    dispatch(addRssRequest());
+    dispatch(addFeedsRequest());
     return fetch(`${APIPath}/me/feeds`, {
       method: 'PUT',
       credentials: 'include',
@@ -31,10 +31,10 @@ function addRss(rssInfos) {
     })
     .then(response => response.json())
     .then((response) => {
-      dispatch(addRssSuccess(response));
+      dispatch(addFeedsSuccess(response));
     })
-    .catch((error) => { dispatch(addRssFailure(error)); });
+    .catch((error) => { dispatch(addFeedsFailure(error)); });
   };
 }
 
-export default addRss;
+export default addFeeds;
